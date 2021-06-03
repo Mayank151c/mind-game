@@ -12,5 +12,14 @@ function nextSequence() {
 	//to blink the random chosen color
 	$("#"+randomChosenColor).fadeOut(100).fadeIn(100);
 
+	//play sound of respective random chosen color
+	playSound(randomChosenColor);
 	gamePattern.push(randomChosenColor);
+}
+
+function playSound(srcColor) {
+	var audio = new Audio("sounds/" + srcColor + ".mp3");
+	setTimeout(function() {
+		audio.play();
+	},100);
 }
