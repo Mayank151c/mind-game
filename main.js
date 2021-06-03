@@ -1,5 +1,7 @@
 var buttonColor = ["red", "blue", "green", "yellow"];
 var gamePattern = [];
+var userClickedPattern = [];
+var indexCheck = 0;
 
 function nextSequence() {
 
@@ -17,9 +19,46 @@ function nextSequence() {
 	gamePattern.push(randomChosenColor);
 }
 
+
+$(".btn").click(function () {
+
+	//select the id attributes of respective color
+	var userChosenColor = $(this).attr("id");
+
+	// store the user clicked pattern
+	userClickedPattern.push(userChosenColor);
+
+	//checks the user input is correct or not
+	if(userChosenColor!=gamePattern[indexCheck]) {
+		var audio = new Audio("sounds/wrong.mp3");
+		audio.play();
+	}
+	else {
+		playSound(userChosenColor);
+
+		indexCheck++;
+		if(indexCheck == gamePattern.length)
+		{
+			setTimeout(function() {
+				nextGamePlay();
+			},800);
+		}
+	}
+});
+
+function nextGamePlay() {
+	
+}
+
+
 function playSound(srcColor) {
 	var audio = new Audio("sounds/" + srcColor + ".mp3");
 	setTimeout(function() {
 		audio.play();
 	},100);
 }
+
+
+$(document).keypress(function() {
+ 		nextSequence();
+ });
