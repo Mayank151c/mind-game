@@ -40,15 +40,11 @@ $(".btn").click(function () {
 		if(indexCheck == gamePattern.length)
 		{
 			setTimeout(function() {
-				nextGamePlay();
+				nextSequence();
 			},800);
 		}
 	}
 });
-
-function nextGamePlay() {
-	
-}
 
 
 function playSound(srcColor) {
