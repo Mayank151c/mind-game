@@ -12,16 +12,16 @@ function nextSequence() {
 	//now random color is chosen w.r.t. randomNumber generated
 	var randomChosenColor = buttonColor[randomNumber];
 
-	//change text of level
-	$("h1").text("Level "+(++level));
-
 	//play sound of respective random chosen color
 	playSound(randomChosenColor);
 
-	//to blink the random chosen color
-	$("#"+randomChosenColor).fadeOut(100).fadeIn(100);
+	//change text of level
+	$("h1").text("Level "+(++level));
 
 	gamePattern.push(randomChosenColor);
+
+	//to blink the random chosen color
+	$("#"+randomChosenColor).fadeOut(100).fadeIn(100);
 }
 
 
@@ -49,7 +49,7 @@ $(".btn").click(function () {
 		if(indexCheck == gamePattern.length)
 		{
 			setTimeout(function() {
-				nextSequence();
+				nextGamePlay();
 			},800);
 		}
 	}
@@ -58,9 +58,11 @@ $(".btn").click(function () {
 
 function playSound(srcColor) {
 	var audio = new Audio("sounds/" + srcColor + ".mp3");
+
+	//to synchronize sound and animation together
 	setTimeout(function() {
 		audio.play();
-	},100);
+	},10);
 }
 
 
@@ -89,8 +91,16 @@ function gameOver() {
 }
 
 
+function nextGamePlay() {
+	nextSequence();
+	indexCheck = 0;
+}
+
+
 $(document).keypress(function() {
 	if(level==0) {
- 		nextSequence();
+		setTimeout(function() {
+			nextGamePlay();
+		},50)
 	}
  });
