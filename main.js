@@ -35,6 +35,7 @@ $(".btn").click(function () {
 
 	//checks the user input is correct or not
 	if(userChosenColor!=gamePattern[indexCheck]) {
+		gameOver();
 		var audio = new Audio("sounds/wrong.mp3");
 		audio.play();
 	}
@@ -67,6 +68,23 @@ function animatePress(currentColor) {
 	$("#"+currentColor).addClass("pressed");
 	setTimeout(function() {
 	 	$("#"+currentColor).removeClass("pressed")
+	},100);
+}
+
+
+function gameOver() {
+	gamePattern = [];
+	userClickedPattern = [];
+	level = 0;
+	indexCheck = 0;
+
+	$("h1").text("Game over press any key to restart");
+	
+	//animation for game over
+	$("body").css("background","red");
+
+	setTimeout(function() {
+		$("body").css("background","#011F3F");
 	},100);
 }
 
