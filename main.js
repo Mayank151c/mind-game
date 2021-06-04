@@ -2,6 +2,7 @@ var buttonColor = ["red", "blue", "green", "yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
 var indexCheck = 0;
+var level = 0;
 
 function nextSequence() {
 
@@ -11,11 +12,15 @@ function nextSequence() {
 	//now random color is chosen w.r.t. randomNumber generated
 	var randomChosenColor = buttonColor[randomNumber];
 
-	//to blink the random chosen color
-	$("#"+randomChosenColor).fadeOut(100).fadeIn(100);
+	//change text of level
+	$("h1").text("Level "+(++level));
 
 	//play sound of respective random chosen color
 	playSound(randomChosenColor);
+
+	//to blink the random chosen color
+	$("#"+randomChosenColor).fadeOut(100).fadeIn(100);
+
 	gamePattern.push(randomChosenColor);
 }
 
@@ -36,6 +41,9 @@ $(".btn").click(function () {
 	else {
 		playSound(userChosenColor);
 
+		//animation of pressing button
+		animatePress(userChosenColor);
+
 		indexCheck++;
 		if(indexCheck == gamePattern.length)
 		{
@@ -51,6 +59,14 @@ function playSound(srcColor) {
 	var audio = new Audio("sounds/" + srcColor + ".mp3");
 	setTimeout(function() {
 		audio.play();
+	},100);
+}
+
+
+function animatePress(currentColor) {
+	$("#"+currentColor).addClass("pressed");
+	setTimeout(function() {
+	 	$("#"+currentColor).removeClass("pressed")
 	},100);
 }
 
