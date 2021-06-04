@@ -72,5 +72,7 @@ function animatePress(currentColor) {
 
 
 $(document).keypress(function() {
+	if(level==0) {
  		nextSequence();
+	}
  });
